@@ -13,7 +13,7 @@ interface UseOpenRouterResult {
 }
 
 export const useOpenRouter = ({
-  model = "openai/gpt-3.5-turbo",
+  model = "openai/gpt-5",
 }: UseOpenRouterOptions = {}): UseOpenRouterResult => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);

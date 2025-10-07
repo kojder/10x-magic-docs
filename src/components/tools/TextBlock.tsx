@@ -57,19 +57,20 @@ export const TextBlock: React.FC<TextBlockProps> = ({ header, text }) => {
             <Dumbbell size={16} />
             <span>{complexityLabels[complexityLevel]}</span>
           </span>
-          <button
-            onClick={() => handleComplexityChange("decrease")}
-            disabled={isLoading || complexityLevel <= 0}
-            className="px-2 py-1 text-sm rounded bg-teal-700 text-teal-100 hover:bg-teal-600 disabled:opacity-50 flex items-center gap-1"
-          >
-            <ArrowDown size={16} />
-          </button>
+
           <button
             onClick={() => handleComplexityChange("increase")}
             disabled={isLoading || complexityLevel >= 4}
             className="px-2 py-1 text-sm rounded bg-indigo-700 text-indigo-100 hover:bg-indigo-600 disabled:opacity-50 flex items-center gap-1"
           >
             <ArrowUp size={16} />
+          </button>
+          <button
+            onClick={() => handleComplexityChange("decrease")}
+            disabled={isLoading || complexityLevel <= 0}
+            className="px-2 py-1 text-sm rounded bg-teal-700 text-teal-100 hover:bg-teal-600 disabled:opacity-50 flex items-center gap-1"
+          >
+            <ArrowDown size={16} />
           </button>
         </div>
       </div>

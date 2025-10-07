@@ -2,7 +2,7 @@ import { useState } from "react";
 import { generateText } from "ai";
 import { createAnthropic } from "@ai-sdk/anthropic";
 
-const MODEL_NAME = "claude-3-5-haiku-20241022";
+const MODEL_NAME = "claude-sonnet-4-5-20250929";
 
 const anthropic = createAnthropic({
   apiKey: import.meta.env.VITE_ANTHROPIC_API_KEY,

@@ -1,0 +1,63 @@
+graph TB
+    subgraph "User Code Layer"
+        A[Python Application Code]
+    end
+
+    subgraph "PyTorch High-Level APIs"
+        B[torch.nn<br/>Neural Network Modules]
+        C[torch.optim<br/>Optimizers]
+        D[torch.utils.data<br/>Data Loading]
+    end
+
+    subgraph "Core PyTorch Engine"
+        E[torch.Tensor<br/>N-dimensional Arrays]
+        F[torch.autograd<br/>Automatic Differentiation]
+        G[JIT Compiler<br/>TorchScript]
+    end
+
+    subgraph "Backend Layer"
+        H[ATen C++ Tensor Library]
+        I[Dispatcher<br/>Device Selection]
+    end
+
+    subgraph "Hardware Acceleration"
+        J[CPU<br/>BLAS/LAPACK]
+        K[CUDA<br/>NVIDIA GPUs]
+        L[ROCm<br/>AMD GPUs]
+        M[MPS<br/>Apple Silicon]
+    end
+
+    A --> B
+    A --> C
+    A --> D
+    A --> E
+
+    B --> E
+    C --> E
+    D --> E
+    B --> F
+
+    E --> H
+    F --> H
+    G --> H
+
+    H --> I
+
+    I --> J
+    I --> K
+    I --> L
+    I --> M
+
+    style A fill:#4a9eff,stroke:#2563eb,color:#fff
+    style B fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style C fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style D fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style E fill:#ec4899,stroke:#db2777,color:#fff
+    style F fill:#ec4899,stroke:#db2777,color:#fff
+    style G fill:#ec4899,stroke:#db2777,color:#fff
+    style H fill:#f59e0b,stroke:#d97706,color:#fff
+    style I fill:#f59e0b,stroke:#d97706,color:#fff
+    style J fill:#10b981,stroke:#059669,color:#fff
+    style K fill:#10b981,stroke:#059669,color:#fff
+    style L fill:#10b981,stroke:#059669,color:#fff
+    style M fill:#10b981,stroke:#059669,color:#fff

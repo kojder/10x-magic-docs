@@ -19,6 +19,13 @@ const availableSubjects: Subject[] = [
     description:
       "Poznaj podstawy automatyzacji przepływu pracy w GitHub z wykorzystaniem GitHub Actions",
   },
+  {
+    id: "pytorch",
+    name: "PyTorch Deep Learning",
+    path: "/docs/pytorch",
+    description:
+      "Master deep learning fundamentals with PyTorch framework for research and production",
+  },
 ];
 
 // Total number of tiles to display

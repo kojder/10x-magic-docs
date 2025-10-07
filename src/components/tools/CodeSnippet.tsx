@@ -9,23 +9,50 @@ export const CodeSnippet: React.FC<CodeSnippetProps> = ({
 }) => {
   const [highlightedCode, setHighlightedCode] = useState<string>("");
   const [copied, setCopied] = useState<boolean>(false);
+  const [hljsLoaded, setHljsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    // Import highlight.js dynamically
-    import("highlight.js").then((hljs) => {
-      import(/* @vite-ignore */ `highlight.js/lib/languages/${language}`)
-        .then((languageModule) => {
-          hljs.default.registerLanguage(language, languageModule.default);
-          const highlighted = hljs.default.highlight(code, { language }).value;
-          setHighlightedCode(highlighted);
-        })
-        .catch(() => {
-          // Fallback if language is not supported
-          const highlighted = hljs.default.highlightAuto(code).value;
-          setHighlightedCode(highlighted);
-        });
-    });
-  }, [code, language]);
+    // Load highlight.js from CDN if not already loaded
+    if (!window.hljs) {
+      const script = document.createElement("script");
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js";
+      script.onload = () => setHljsLoaded(true);
+      document.head.appendChild(script);
+
+      // Load CSS for syntax highlighting
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href =
+        "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css";
+      document.head.appendChild(link);
+    } else {
+      setHljsLoaded(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!hljsLoaded || !window.hljs) return;
+
+    // Load the specific language if not already loaded
+    if (!window.hljs.getLanguage(language)) {
+      const langScript = document.createElement("script");
+      langScript.src = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/${language}.min.js`;
+      langScript.onload = () => {
+        const highlighted = window.hljs.highlight(code, { language }).value;
+        setHighlightedCode(highlighted);
+      };
+      langScript.onerror = () => {
+        // Fallback to auto-detection if language file fails
+        const highlighted = window.hljs.highlightAuto(code).value;
+        setHighlightedCode(highlighted);
+      };
+      document.head.appendChild(langScript);
+    } else {
+      // Language already loaded
+      const highlighted = window.hljs.highlight(code, { language }).value;
+      setHighlightedCode(highlighted);
+    }
+  }, [code, language, hljsLoaded]);
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(code);
@@ -60,7 +87,7 @@ export const CodeSnippet: React.FC<CodeSnippetProps> = ({
           )}
           <code
             className={`language-${language}`}
-            dangerouslySetInnerHTML={{ __html: highlightedCode }}
+            dangerouslySetInnerHTML={{ __html: highlightedCode || code }}
           />
         </pre>
       </div>
