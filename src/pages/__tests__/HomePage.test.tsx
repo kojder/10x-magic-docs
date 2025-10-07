@@ -36,32 +36,42 @@ describe("HomePage", () => {
     renderHomePage();
 
     // Test the GitHub Actions subject card
-    const subjectTitle = screen.getByText("Pierwsze kroki GitHub Actions");
-    expect(subjectTitle).toBeInTheDocument();
+    const githubActionsTitle = screen.getByText("Pierwsze kroki GitHub Actions");
+    expect(githubActionsTitle).toBeInTheDocument();
 
-    const description = screen.getByText(
+    const githubActionsDescription = screen.getByText(
       "Poznaj podstawy automatyzacji przepływu pracy w GitHub z wykorzystaniem GitHub Actions",
     );
-    expect(description).toBeInTheDocument();
+    expect(githubActionsDescription).toBeInTheDocument();
 
-    const startButton = screen.getByText("Start Learning");
-    expect(startButton).toBeInTheDocument();
+    // Test the PyTorch subject card
+    const pytorchTitle = screen.getByText("PyTorch Deep Learning");
+    expect(pytorchTitle).toBeInTheDocument();
+
+    const pytorchDescription = screen.getByText(
+      "Master deep learning fundamentals with PyTorch framework for research and production",
+    );
+    expect(pytorchDescription).toBeInTheDocument();
+
+    // Check that there are 2 "Start Learning" buttons (one for each subject)
+    const startButtons = screen.getAllByText("Start Learning");
+    expect(startButtons).toHaveLength(2);
   });
 
   it("renders placeholder tiles for remaining slots", () => {
     renderHomePage();
 
-    // Since we have 1 real subject and TOTAL_TILES is 25, we should have 24 placeholder tiles
+    // Since we have 2 real subjects and TOTAL_TILES is 25, we should have 23 placeholder tiles
     const placeholderDescriptions = screen.getAllByText(
       "Use Agentic AI to create new learning paths",
     );
-    expect(placeholderDescriptions).toHaveLength(24);
+    expect(placeholderDescriptions).toHaveLength(23);
 
     // Check if placeholder buttons are disabled
     const disabledButtons = screen.getAllByRole("button", {
       name: /Subject \d+/,
     });
-    expect(disabledButtons).toHaveLength(24);
+    expect(disabledButtons).toHaveLength(23);
     disabledButtons.forEach((button) => {
       expect(button).toHaveAttribute("disabled");
     });
