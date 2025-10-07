@@ -38,19 +38,25 @@ export const CodeSnippet: React.FC<CodeSnippetProps> = ({
       const langScript = document.createElement("script");
       langScript.src = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/${language}.min.js`;
       langScript.onload = () => {
-        const highlighted = window.hljs.highlight(code, { language }).value;
-        setHighlightedCode(highlighted);
+        if (window.hljs) {
+          const highlighted = window.hljs.highlight(code, { language }).value;
+          setHighlightedCode(highlighted);
+        }
       };
       langScript.onerror = () => {
         // Fallback to auto-detection if language file fails
-        const highlighted = window.hljs.highlightAuto(code).value;
-        setHighlightedCode(highlighted);
+        if (window.hljs) {
+          const highlighted = window.hljs.highlightAuto(code).value;
+          setHighlightedCode(highlighted);
+        }
       };
       document.head.appendChild(langScript);
     } else {
       // Language already loaded
-      const highlighted = window.hljs.highlight(code, { language }).value;
-      setHighlightedCode(highlighted);
+      if (window.hljs) {
+        const highlighted = window.hljs.highlight(code, { language }).value;
+        setHighlightedCode(highlighted);
+      }
     }
   }, [code, language, hljsLoaded]);
 
