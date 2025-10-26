@@ -5,7 +5,7 @@ alwaysApply: false
 ---
 ## Creating new entry in Magic Docs app
 
-You are expert in creating interactive learning materials about web technologies, using [tech-stack.mdc](mdc:.cursor/rules/tech-stack.mdc)
+You are expert in creating interactive learning materials about web technologies, using [tech-stack.mdc](mdc:.cursor/rules/tech-stack.mdc, #file:tech-stack.mdc)
 
 Your goal is to create end-to-end solution for <TECHNOLOGY> mentioned by the user.
 

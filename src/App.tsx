@@ -1,8 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
-import GithubActionsPage from "./components/docs/github-actions/GithubActionsPage";
 import PyTorchPage from "./components/docs/pytorch/PyTorchPage";
+import GitHubActionsSonarQubePage from "./components/docs/github-actions-sonarqube/GitHubActionsSonarQubePage";
 
 /* Each page should be wrapped in the Layout component */
 const router = createBrowserRouter([
@@ -15,14 +15,6 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/docs/github-actions",
-    element: (
-      <Layout>
-        <GithubActionsPage />
-      </Layout>
-    ),
-  },
-  {
     path: "/docs/pytorch",
     element: (
       <Layout>
@@ -30,10 +22,22 @@ const router = createBrowserRouter([
       </Layout>
     ),
   },
+  {
+    path: "/docs/github-actions-sonarqube",
+    element: (
+      <Layout>
+        <GitHubActionsSonarQubePage />
+      </Layout>
+    ),
+  },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <div className="min-h-screen bg-[#1e1e1e]">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;

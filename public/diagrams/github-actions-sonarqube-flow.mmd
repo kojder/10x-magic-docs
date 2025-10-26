@@ -1,0 +1,39 @@
+graph TB
+    subgraph "Developer Workflow"
+        A[Developer pushes code] --> B[GitHub detects push/PR event]
+    end
+    
+    subgraph "GitHub Actions Runner"
+        B --> C[Checkout repository]
+        C --> D[Setup build environment]
+        D --> E[Install dependencies]
+        E --> F[Run tests + coverage]
+        F --> G[Execute build]
+        G --> H[Run SonarScanner]
+    end
+    
+    subgraph "SonarQube Cloud Analysis"
+        H --> I[Upload code & metrics]
+        I --> J[Static code analysis]
+        J --> K[Security vulnerability scan]
+        K --> L[Code smell detection]
+        L --> M[Calculate quality metrics]
+        M --> N[Evaluate Quality Gate]
+    end
+    
+    subgraph "Feedback Loop"
+        N -->|Pass| O[Mark check as successful]
+        N -->|Fail| P[Mark check as failed]
+        O --> Q[Update PR with metrics]
+        P --> Q
+        Q --> R[Display results in SonarQube dashboard]
+        R --> S[Notify developer]
+    end
+    
+    style A fill:#4ec9b0,stroke:#333,stroke-width:2px,color:#000
+    style B fill:#569cd6,stroke:#333,stroke-width:2px,color:#000
+    style H fill:#0e639c,stroke:#333,stroke-width:2px,color:#fff
+    style N fill:#ce9178,stroke:#333,stroke-width:2px,color:#000
+    style O fill:#4ec9b0,stroke:#333,stroke-width:2px,color:#000
+    style P fill:#f48771,stroke:#333,stroke-width:2px,color:#000
+    style S fill:#dcdcaa,stroke:#333,stroke-width:2px,color:#000

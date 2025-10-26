@@ -13,18 +13,18 @@ interface Subject {
 // Introduce a new Subject to present it on the home page grid
 const availableSubjects: Subject[] = [
   {
-    id: "github-actions",
-    name: "Pierwsze kroki GitHub Actions",
-    path: "/docs/github-actions",
-    description:
-      "Poznaj podstawy automatyzacji przepływu pracy w GitHub z wykorzystaniem GitHub Actions",
-  },
-  {
     id: "pytorch",
     name: "PyTorch Deep Learning",
     path: "/docs/pytorch",
     description:
       "Master deep learning fundamentals with PyTorch framework for research and production",
+  },
+  {
+    id: "github-actions-sonarqube",
+    name: "GitHub Actions + SonarQube",
+    path: "/docs/github-actions-sonarqube",
+    description:
+      "Automated code quality and security analysis with GitHub Actions and SonarQube Cloud",
   },
 ];
 
@@ -44,38 +44,32 @@ export default function HomePage() {
                 <HoverCardTrigger asChild>
                   <Link
                     to={subject.path}
-                    className="block transition-transform duration-200 hover:scale-105"
+                    className="block transition-all duration-200 hover:scale-105"
                   >
                     <Card
-                      className="h-full border-2 border-neutral-200 dark:border-neutral-800 shadow-lg dark:shadow-xl bg-neutral-50/50 dark:bg-neutral-900/50 backdrop-blur-sm"
+                      className="h-full border-2 border-[#3e3e42] shadow-lg bg-[#252526] backdrop-blur-sm hover:border-[#569cd6] transition-colors"
                       data-testid="card"
                     >
-                      <CardHeader className="space-y-1">
+                      <CardHeader className="space-y-2">
                         <CardTitle className="text-xl font-bold">
-                          <span className="text-neutral-900 dark:text-neutral-100">
-                            {subject.name}
-                          </span>
+                          <span className="text-[#d4d4d4]">{subject.name}</span>
                         </CardTitle>
-                        <CardDescription className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <CardDescription className="text-sm text-[#9d9d9d] leading-relaxed">
                           {subject.description}
                         </CardDescription>
                       </CardHeader>
                       <CardFooter>
-                        <Button className="w-full bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-white transition-all duration-200">
+                        <Button className="w-full bg-[#0e639c] hover:bg-[#1177bb] text-white transition-all duration-200">
                           Start Learning
                         </Button>
                       </CardFooter>
                     </Card>
                   </Link>
                 </HoverCardTrigger>
-                <HoverCardContent className="w-80">
+                <HoverCardContent className="w-80 bg-[#252526] border-[#3e3e42]">
                   <div className="space-y-2">
-                    <h4 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
-                      {subject.name}
-                    </h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      {subject.description}
-                    </p>
+                    <h4 className="text-sm font-semibold text-[#d4d4d4]">{subject.name}</h4>
+                    <p className="text-sm text-[#9d9d9d]">{subject.description}</p>
                   </div>
                 </HoverCardContent>
               </HoverCard>
@@ -84,19 +78,21 @@ export default function HomePage() {
             return (
               <Card
                 key={`placeholder-${index}`}
-                className="h-full border border-dashed border-neutral-300 dark:border-neutral-700 bg-neutral-100/50 dark:bg-neutral-900/50 backdrop-blur-sm opacity-70 transition-all duration-200 hover:opacity-100"
+                className="h-full border border-dashed border-[#3e3e42] bg-[#252526]/50 backdrop-blur-sm opacity-60 transition-all duration-200 hover:opacity-100"
                 data-testid="card"
               >
-                <CardHeader className="space-y-1">
-                  <CardTitle className="text-xl font-bold text-neutral-500 dark:text-neutral-500">
-                    -
-                  </CardTitle>
-                  <CardDescription className="text-neutral-400 dark:text-neutral-400">
+                <CardHeader className="space-y-2">
+                  <CardTitle className="text-xl font-bold text-[#858585]">-</CardTitle>
+                  <CardDescription className="text-[#858585]">
                     Use Agentic AI to create new learning paths
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button disabled className="w-full" variant="secondary">
+                  <Button
+                    disabled
+                    className="w-full bg-[#3e3e42] text-[#858585]"
+                    variant="secondary"
+                  >
                     Subject {index + 1}
                   </Button>
                 </CardFooter>

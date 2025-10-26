@@ -14,6 +14,12 @@ export const TextBlock: React.FC<TextBlockProps> = ({ header, text }) => {
     2: text, // Initialize cache with the original text at level 2 (Professional)
   });
 
+  // Process content to ensure proper markdown formatting
+  const processedContent = React.useMemo(() => {
+    // Replace escaped newlines with actual newlines for markdown
+    return content.replace(/\\n/g, "\n");
+  }, [content]);
+
   const handleComplexityChange = async (action: "increase" | "decrease") => {
     // Calculate new complexity level
     const newComplexityLevel =
@@ -45,15 +51,13 @@ export const TextBlock: React.FC<TextBlockProps> = ({ header, text }) => {
   };
 
   return (
-    <div className="bg-[#242424] rounded-lg border border-gray-800 p-6 mb-6">
-      <div className="flex justify-between items-center mb-3">
+    <div className="bg-[#1e1e1e] rounded-lg border border-[#3e3e42] p-6 mb-6 shadow-lg">
+      <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-3">
-          <h2 className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            {header}
-          </h2>
+          <h2 className="text-xl font-semibold text-[#4ec9b0]">{header}</h2>
         </div>
         <div className="flex gap-2 items-center">
-          <span className="flex flex-row items-center gap-2 text-sm text-gray-400">
+          <span className="flex flex-row items-center gap-2 text-sm text-[#858585]">
             <Dumbbell size={16} />
             <span>{complexityLabels[complexityLevel]}</span>
           </span>
@@ -61,27 +65,36 @@ export const TextBlock: React.FC<TextBlockProps> = ({ header, text }) => {
           <button
             onClick={() => handleComplexityChange("increase")}
             disabled={isLoading || complexityLevel >= 4}
-            className="px-2 py-1 text-sm rounded bg-indigo-700 text-indigo-100 hover:bg-indigo-600 disabled:opacity-50 flex items-center gap-1"
+            className="px-2 py-1 text-sm rounded bg-[#0e639c] text-[#e0e0e0] hover:bg-[#1177bb] disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 transition-colors"
           >
             <ArrowUp size={16} />
           </button>
           <button
             onClick={() => handleComplexityChange("decrease")}
             disabled={isLoading || complexityLevel <= 0}
-            className="px-2 py-1 text-sm rounded bg-teal-700 text-teal-100 hover:bg-teal-600 disabled:opacity-50 flex items-center gap-1"
+            className="px-2 py-1 text-sm rounded bg-[#0e639c] text-[#e0e0e0] hover:bg-[#1177bb] disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 transition-colors"
           >
             <ArrowDown size={16} />
           </button>
         </div>
       </div>
-      <div className="text-gray-200 leading-relaxed relative prose prose-invert max-w-none">
+      <div className="text-[#d4d4d4] leading-relaxed relative prose prose-invert max-w-none">
         {isLoading && (
-          <div className="absolute inset-0 bg-[#242424]/50 flex items-center justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
+          <div className="absolute inset-0 bg-[#1e1e1e]/80 flex items-center justify-center rounded-lg">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#4ec9b0]"></div>
           </div>
         )}
-        {error && <div className="text-red-400 mb-2 text-sm">Error: {error.message}</div>}
-        <ReactMarkdown>{content}</ReactMarkdown>
+        {error && <div className="text-[#f48771] mb-2 text-sm">Error: {error.message}</div>}
+        <ReactMarkdown
+          components={{
+            p: ({ children }) => <p className="mb-4">{children}</p>,
+            strong: ({ children }) => (
+              <strong className="font-semibold text-[#4ec9b0]">{children}</strong>
+            ),
+          }}
+        >
+          {processedContent}
+        </ReactMarkdown>
       </div>
     </div>
   );

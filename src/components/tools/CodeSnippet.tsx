@@ -72,27 +72,27 @@ export const CodeSnippet: React.FC<CodeSnippetProps> = ({
   };
 
   return (
-    <div className="bg-[#1a1a1a] rounded-lg border border-gray-800 mb-6 overflow-hidden">
+    <div className="bg-[#1e1e1e] rounded-lg border border-[#3e3e42] mb-6 overflow-hidden shadow-lg">
       {fileName && (
-        <div className="bg-[#242424] px-4 py-2 border-b border-gray-800 flex justify-between items-center">
-          <span className="text-gray-300 font-mono text-sm">{fileName}</span>
+        <div className="bg-[#252526] px-4 py-2.5 border-b border-[#3e3e42] flex justify-between items-center">
+          <span className="text-[#cccccc] font-mono text-sm">{fileName}</span>
           <button
             onClick={copyToClipboard}
-            className="text-xs px-2 py-1 rounded bg-blue-900 hover:bg-blue-800 text-blue-200 transition-colors"
+            className="text-xs px-3 py-1.5 rounded bg-[#0e639c] hover:bg-[#1177bb] text-[#ffffff] transition-colors font-medium"
           >
-            {copied ? "Copied!" : "Copy"}
+            {copied ? "✓ Copied!" : "Copy"}
           </button>
         </div>
       )}
-      <div className="relative overflow-auto">
-        <pre className="p-4 overflow-x-auto flex">
+      <div className="relative overflow-auto bg-[#1e1e1e]">
+        <pre className="p-4 overflow-x-auto flex m-0">
           {showLineNumbers && (
-            <div className="text-gray-500 pr-4 text-right select-none border-r border-gray-700 mr-4">
+            <div className="text-[#858585] pr-4 text-right select-none border-r border-[#3e3e42] mr-4 min-w-[2.5rem]">
               {getLineNumbers()}
             </div>
           )}
           <code
-            className={`language-${language}`}
+            className={`language-${language} text-[#d4d4d4]`}
             dangerouslySetInnerHTML={{ __html: highlightedCode || code }}
           />
         </pre>

@@ -5,9 +5,17 @@ alwaysApply: true
 ---
 ## Tech Stack
 
-- React 19
-- Tailwind 4
-- Vite
-- shadcn/ui
+- Java 17
+- Spring Boot 3
+- PostgreSQL 15
+- Angular 18
+- TypeScript 5
+- Tailwind CSS 3
+- Leaflet.js
+- Nginx
+- Systemd
+- Mikrus VPS
+- JWT (stateless)
+- BCrypt 
 
 Always use libraries and frameworks available in [package.json](mdc:package.json)

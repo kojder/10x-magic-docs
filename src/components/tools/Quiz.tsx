@@ -23,29 +23,29 @@ export const Quiz: React.FC<QuizProps> = ({ title, question }) => {
   const isCorrect = selectedAnswer === question.correctAnswer;
 
   return (
-    <div className="bg-[#242424] rounded-lg border border-gray-800 p-6 mb-6">
-      {title && <h3 className="text-lg font-semibold mb-3 text-blue-400">{title}</h3>}
+    <div className="bg-[#1e1e1e] rounded-lg border border-[#3e3e42] p-6 mb-6 shadow-lg">
+      {title && <h3 className="text-lg font-semibold mb-4 text-[#569cd6]">{title}</h3>}
 
       <div className="mb-4">
-        <p className="text-gray-100 font-medium mb-4">{question.question}</p>
+        <p className="text-[#d4d4d4] font-medium mb-4">{question.question}</p>
 
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {question.options.map((option) => (
             <button
               key={option.id}
               onClick={() => handleOptionSelect(option.id)}
               disabled={showExplanation}
-              className={`w-full text-left p-3 rounded border transition-colors ${
+              className={`w-full text-left p-3.5 rounded border transition-all ${
                 selectedAnswer === option.id
                   ? showExplanation
                     ? isCorrect
-                      ? "bg-green-900/30 border-green-600 text-green-200"
-                      : "bg-red-900/30 border-red-600 text-red-200"
-                    : "bg-blue-900/30 border-blue-600 text-blue-200"
-                  : "bg-[#1e1e1e] border-gray-700 hover:border-gray-500"
+                      ? "bg-[#1e3a1e] border-[#4ec9b0] text-[#d4d4d4]"
+                      : "bg-[#3a1e1e] border-[#f48771] text-[#d4d4d4]"
+                    : "bg-[#264f78] border-[#569cd6] text-[#ffffff]"
+                  : "bg-[#252526] border-[#3e3e42] hover:border-[#569cd6] hover:bg-[#2a2d2e] text-[#d4d4d4]"
               }`}
             >
-              <span className="font-bold mr-2">{option.id}.</span> {option.text}
+              <span className="font-bold mr-2 text-[#4ec9b0]">{option.id}.</span> {option.text}
             </button>
           ))}
         </div>
@@ -55,10 +55,10 @@ export const Quiz: React.FC<QuizProps> = ({ title, question }) => {
         <button
           onClick={handleCheckAnswer}
           disabled={!selectedAnswer}
-          className={`px-4 py-2 rounded font-medium transition-colors ${
+          className={`px-5 py-2.5 rounded font-medium transition-colors ${
             selectedAnswer
-              ? "bg-blue-600 hover:bg-blue-700 text-white"
-              : "bg-gray-800 text-gray-500 cursor-not-allowed"
+              ? "bg-[#0e639c] hover:bg-[#1177bb] text-[#ffffff]"
+              : "bg-[#3e3e42] text-[#858585] cursor-not-allowed"
           }`}
         >
           Check Answer
@@ -66,21 +66,23 @@ export const Quiz: React.FC<QuizProps> = ({ title, question }) => {
       ) : (
         <div>
           <div
-            className={`mt-4 p-4 rounded ${
-              isCorrect
-                ? "bg-green-900/20 border border-green-800"
-                : "bg-red-900/20 border border-red-800"
+            className={`mt-4 p-4 rounded border ${
+              isCorrect ? "bg-[#1e3a1e] border-[#4ec9b0]" : "bg-[#3a1e1e] border-[#f48771]"
             }`}
           >
-            <p className={`font-medium ${isCorrect ? "text-green-400" : "text-red-400"}`}>
+            <p
+              className={`font-semibold text-lg ${isCorrect ? "text-[#4ec9b0]" : "text-[#f48771]"}`}
+            >
               {isCorrect ? "✓ Correct!" : "✗ Incorrect!"}
             </p>
-            {question.explanation && <p className="text-gray-300 mt-2">{question.explanation}</p>}
+            {question.explanation && (
+              <p className="text-[#d4d4d4] mt-2 leading-relaxed">{question.explanation}</p>
+            )}
           </div>
 
           <button
             onClick={handleReset}
-            className="mt-4 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors"
+            className="mt-4 px-5 py-2.5 bg-[#3e3e42] text-[#cccccc] rounded hover:bg-[#505050] transition-colors font-medium"
           >
             Try Again
           </button>
